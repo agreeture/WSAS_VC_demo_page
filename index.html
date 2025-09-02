@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VC Demo – English & Japanese Experiments</title>
+</head>
+
+<body>
+  <h1>Sequence-To-Sequence Voice Conversion With Weighted Guided Attention</h1>
+  <p>H. Yamashita, T. Okamoto, R. Takashima, Y. Ohtani, T. Takiguchi, T. Toda, and H. Kawai, "Sequence-To-Sequence Voice Conversion With Weighted Guided Attention"</p>
+  
+  <hr>
+  <!-- ========= English experiment ========= -->
+  <h2>English experiment</h2>
+
+  <!-- ========== US female (slt) → US male (bdl) ========== -->
+  <h2>native female (slt) → native male (bdl)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/US_female_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/US_female_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/US_female_to_US_male/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/US_female_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/US_female_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/US_female_to_US_male/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/US_female_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/US_female_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/US_female_to_US_male/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <!-- ========== US male (bdl) → US female (slt) ========== -->
+  <h2>native male (bdl) → native female (slt)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/US_male_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/US_male_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/US_male_to_US_female/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/US_male_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/US_male_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/US_male_to_US_female/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/US_male_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/US_male_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/US_male_to_US_female/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <!-- ========== Spanish female (NJS) → US female (slt) ========== -->
+  <h2>Spanish female (NJS) → native female (slt)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_female_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_female_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_female_to_US_female/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_female_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_female_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_female_to_US_female/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_female_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_female_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_female_to_US_female/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <!-- ========== Spanish female (NJS) → US male (bdl) ========== -->
+  <h2>Spanish female (NJS) → native male (bdl)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_female_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_female_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_female_to_US_male/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_female_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_female_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_female_to_US_male/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_female_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_female_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_female_to_US_male/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <!-- ========== Spanish male (ERMS) → US female (slt) ========== -->
+  <h2>Spanish male (ERMS) → native female (slt)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_male_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_male_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_male_to_US_female/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_male_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_male_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_male_to_US_female/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_male_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_male_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_male_to_US_female/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <!-- ========== Spanish male (ERMS) → US male (bdl) ========== -->
+  <h2>Spanish male (ERMS) → native male (bdl)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_male_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_male_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_male_to_US_male/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_male_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_male_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_male_to_US_male/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/Spanish_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Spanish_male_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Spanish_male_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Spanish_male_to_US_male/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <!-- ========== Vietnamese female (PNV) → US female (slt) ========== -->
+  <h2>Vietnamese female (PNV) → native female (slt)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_female_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_female_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_female_to_US_female/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_female_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_female_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_female_to_US_female/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_female_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_female_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_female_to_US_female/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <!-- ========== Vietnamese female (PNV) → US male (bdl) ========== -->
+  <h2>Vietnamese female (PNV) → native male (bdl)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_female_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_female_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_female_to_US_male/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_female_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_female_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_female_to_US_male/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_female_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_female_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_female_to_US_male/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <!-- ========== Vietnamese male (TLV) → US female (slt) ========== -->
+  <h2>Vietnamese male (TLV) → native female (slt)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_male_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_male_to_US_female/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_male_to_US_female/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_male_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_male_to_US_female/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_male_to_US_female/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_female_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_male_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_male_to_US_female/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_male_to_US_female/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <!-- ========== Vietnamese male (TLV) → US male (bdl) ========== -->
+  <h2>Vietnamese male (TLV) → native male (bdl)</h2>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_male_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_male_to_US_male/arctic_a0002_gen.wav"></audio></td>
+        <td><div>arctic_a0002 — &quot;Not at this particular case, Tom, apologized Whittemore.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_male_to_US_male/arctic_a0002_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_male_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_male_to_US_male/arctic_a0009_gen.wav"></audio></td>
+        <td><div>arctic_a0009 — &quot;He turned sharply, and faced Gregson across the table.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_male_to_US_male/arctic_a0009_gen.wav"></audio></td>
+      </tr>
+      <tr>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/Vietnamese_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/US_male_original/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_fastspeech2_mel_mas_noVA_r3/Vietnamese_male_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_eden_vc_r1/Vietnamese_male_to_US_male/arctic_a0016_gen.wav"></audio></td>
+        <td><div>arctic_a0016 — &quot;There&#39;s Fort Churchill, a rifle-shot beyond the ridge, asleep.&quot;</div><audio controls preload="none" src="cmu_arctic/finetune_wsas_vc_g40_r3/Vietnamese_male_to_US_male/arctic_a0016_gen.wav"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <hr>
+
+  <!-- ========= Japanese experiment ========= -->
+  <h2>Japanese experiment（日本語実験）</h2>
+
+  <!-- ========== JP female → JP male ========== -->
+  <h3>JP female → JP male</h3>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_female_original/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_male_original/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/fastspeech2_mel_mas_noVA_r3/JP_female_to_JP_male/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/eden_vc_r1/JP_female_to_JP_male/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/wsas_vc_g80_r3/JP_female_to_JP_male/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_female_original/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_male_original/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/fastspeech2_mel_mas_noVA_r3/JP_female_to_JP_male/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/eden_vc_r1/JP_female_to_JP_male/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/wsas_vc_g80_r3/JP_female_to_JP_male/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_female_original/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_male_original/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/fastspeech2_mel_mas_noVA_r3/JP_female_to_JP_male/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/eden_vc_r1/JP_female_to_JP_male/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/wsas_vc_g80_r3/JP_female_to_JP_male/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+
+  <!-- ========== JP male → JP female ========== -->
+  <h3>JP male → JP female</h3>
+  <table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th width="18%">source</th>
+        <th width="18%">target</th>
+        <th>MAS-VC</th>
+        <th>EdenVC</th>
+        <th>WSAS-VC (proposed)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_male_original/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_female_original/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/fastspeech2_mel_mas_noVA_r3/JP_male_to_JP_female/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/eden_vc_r1/JP_male_to_JP_female/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_C-U__000100 — 病気ではなくても健康診断を受けに行きます。</div>
+          <audio controls preload="none" src="hi-fi-captain/wsas_vc_g80_r3/JP_male_to_JP_female/Seikatsu01_C-U__000100_gen.wav"></audio>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_male_original/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_female_original/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/fastspeech2_mel_mas_noVA_r3/JP_male_to_JP_female/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/eden_vc_r1/JP_male_to_JP_female/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu01_I-SE_000090 — これだけしか検査してくれないのは、なぜですか？</div>
+          <audio controls preload="none" src="hi-fi-captain/wsas_vc_g80_r3/JP_male_to_JP_female/Seikatsu01_I-SE_000090_gen.wav"></audio>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_male_original/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/JP_female_original/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/fastspeech2_mel_mas_noVA_r3/JP_male_to_JP_female/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/eden_vc_r1/JP_male_to_JP_female/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+        <td>
+          <div>Seikatsu10_A-YA_000050 — あなたが街で見かけた食べものは、たこ焼きで、こちらはお好み焼きと言います。</div>
+          <audio controls preload="none" src="hi-fi-captain/wsas_vc_g80_r3/JP_male_to_JP_female/Seikatsu10_A-YA_000050_gen.wav"></audio>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ========== Spanish female (NJS) → US female (slt) already done; Spanish male to US male/female done -->
+  <!-- Remaining two: US_female→US_male/US_male→US_female already done at top -->
+
+  <hr>
+</body>
+</html>
